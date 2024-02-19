@@ -18,6 +18,9 @@ PRINTF_PATH 	= 	libraries/libft/ft_printf
 PRINTF		= 	$(PRINTF_PATH)/libftprintf.a
 SRC_FILES = so_long.c exit_screen.c
 HEADER = so_long.h
+CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS += -I/usr/include/X11
+MLXFLAGS += -L/usr/X11/lib -lXext -lX11
 
 SOURCES = $(SRC_FILES)
 
@@ -25,7 +28,7 @@ OBJECTS = $(SOURCES:.c=.o)
 NAME = so_long
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -g
+
 MLXFLAGS = -L. -lXext -L. -lX11
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)

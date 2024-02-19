@@ -21,8 +21,8 @@
 # include "libraries/libft/ft_printf/ft_printf.h"
 
 #define TILE_SIZE 40 // Tamanho das imagens 
-#define MAP_HEIGHT 9 * TILE_SIZE
-#define MAP_WIDTH 25 * TILE_SIZE
+#define MAP_HEIGHT 9
+#define MAP_WIDTH 25
 
 typedef struct s_game
 {
@@ -48,8 +48,6 @@ typedef struct s_game
 }	t_game;
 
 
-int		display_confirmation_message(int event, t_game *game);
-void		clear_confirmation_message(t_game *game);
 int			handleWindowClose(t_game *game);
 
 #endif

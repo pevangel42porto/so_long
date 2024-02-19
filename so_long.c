@@ -33,12 +33,12 @@ int are_collectables_remaining(t_game *game)
     return (0); // Não há mais coletáveis
 }
 
-/* void update_moves_display(t_game *game)
+void update_moves_display(t_game *game)
 {
     mlx_string_put(game->mlx, game->win, 85, 10, 0xFFFFFF, "Moves:");
     char movesText[20];
     ft_strlcpy(movesText, ft_itoa(game->moves), sizeof(movesText));
-    mlx_string_put(game->mlx, game->win, 100, 10, 0xFFFFFF, movesText);
+    mlx_string_put(game->mlx, game->win, 130, 10, 0xFFFFFF, movesText);
 }
 
 
@@ -48,18 +48,18 @@ void	update_score_display(t_game *game)
     char scoreText[20];
     ft_strlcpy(scoreText, ft_itoa(game->score), sizeof(scoreText));
     mlx_string_put(game->mlx, game->win, 60, 10, 0xFFFFFF, scoreText);
-} */
+}
 
 void	collect_collectable(t_game *game, int x, int y)
 {
     if (game->map[y / TILE_SIZE][x / TILE_SIZE] == 'C')
     {
-        // Remova o coletável do mapa (substituindo por '0')
+        // Remover o coletável do mapa (substituindo por '0')
         game->map[y / TILE_SIZE][x / TILE_SIZE] = '0';
-        // Adicione lógica para aumentar a pontuação ou fazer outras ações necessárias
+        // Adicionar lógica para aumentar a pontuação ou fazer outras ações necessárias
         game->score += 10; // Adiciona 10 à pontuação por coletável
         // Exibe a pontuação na janela do jogo
-       // update_score_display(game);
+        update_score_display(game);
     }
 }
 
@@ -164,8 +164,8 @@ int render_next_frame(t_game *game)
         i++;
         j = 0;
       }
-    //update_score_display(game);
-   // update_moves_display(game);
+    update_score_display(game);
+    update_moves_display(game);
     mlx_put_image_to_window(game->mlx, game->win, game->image_player, game->x_player, game->y_player);
     return (0);
 }
@@ -181,8 +181,8 @@ int main(void)
     game.win = mlx_new_window(game.mlx, MAP_WIDTH * TILE_SIZE, MAP_HEIGHT * TILE_SIZE, "NoName Game");
     game.exit_confirmation = 0;
     game.color = 0xFF0000;
-    game.x_player = 2 * TILE_SIZE;
-    game.y_player = 2 * TILE_SIZE;
+    game.x_player = 0;
+    game.y_player = 0;
     game.score = 0;
     game.moves = 0;
     // Inicializar as imagens
@@ -216,7 +216,7 @@ int main(void)
         "1000000000C00000000000C01",
         "1000000000C0000000C000011",
         "1000000000E00000000000001",
-        "1000000000000000000000001",
+        "1000000000000000P00000001",
         "1000000000000000000000001",
         "1111111111111111111111111",
     };
@@ -253,9 +253,11 @@ int main(void)
     // Inicia o loop principal
     mlx_loop(game.mlx);
 
-/* 	for (int i = 0; i < MAP_HEIGHT; i++) {
-    free(game.map[i]); }*/
-
-//free(game.map);
-    return 0;
+    // libertar a memoria guardada
+    i = 0;
+    while(i < MAP_HEIGHT)
+    {
+        free(game.map[i]);
+        i++;
+    }    
 }
